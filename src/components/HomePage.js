@@ -1,11 +1,10 @@
-import React, { useState, Component } from 'react';
+import React, { useState } from 'react';
 import { userCollection } from '../firebase'
 import { Redirect } from "react-router-dom";
 
 import '../css/HomePage.css';
 
 export default function HomePage(){
-
     const [username , setUsername] = useState("")
     const [password , setPassword] = useState("")
     const [redirect , setRedirect] = useState(false)
