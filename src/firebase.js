@@ -15,3 +15,4 @@ const app = initializeApp(firebaseConfig)
 
 export const db = app.firestore()
 export const userCollection = db.collection('user')
+export const equipmentCollection = db.collection('equipment')

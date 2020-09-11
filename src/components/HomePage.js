@@ -35,17 +35,6 @@ export default function HomePage(){
         setPassword("")
         setRedirect(false)
         return false
-        /*userCollection.doc("GDzlo9si8rB0tyXE8mJk").set({
-            name: "Los Angeles",
-            username: "CA",
-            password: "USA"
-        })
-        .then(function() {
-            console.log("Document successfully written!");
-        })
-        .catch(function(error) {
-            console.error("Error writing document: ", error);
-        });*/
     }
 
     if(redirect){
