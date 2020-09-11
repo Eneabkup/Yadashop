@@ -28,6 +28,7 @@ export default function UserSetupPage(){
     
     const [lists , setLists] = useState([])
 
+
     const readUser = (e) => {
         e.preventDefault()
         const tmpLists = []
@@ -43,7 +44,6 @@ export default function UserSetupPage(){
             });
         });
         setLists(tmpLists)
-        return true
     }
 
     const deleteItem = (e) =>{
@@ -66,13 +66,18 @@ export default function UserSetupPage(){
                         <a href="#" class="btn btn-white btn-animated">Get User</a>
                     </div>
                     <div>
+
+                    </div>
+                    <div>
                     {
-                        lists.map((newItem) => {
+                        lists.map((Item) => {
                             return(
-                                <li key={newItem.username}>
-                                    {newItem.name}
-                                    <button onClick={() => deleteItem(newItem.username)}>delete</button>
-                                </li>
+                                <div>
+                                    <a>{Item.username}</a>
+                                    <a>{Item.password}</a>
+                                    <a>{Item.name}</a>
+                                    <button>delete</button>
+                                </div>
                             )
                         })
                     }
