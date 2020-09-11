@@ -1,6 +1,6 @@
 import React, { useState, Component } from 'react';
 import { userCollection } from '../firebase'
-import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 import '../css/HomePage.css';
 
@@ -8,9 +8,9 @@ export default function HomePage(){
 
     const [username , setUsername] = useState("")
     const [password , setPassword] = useState("")
+    const [redirect , setRedirect] = useState(false)
 
     const login = (e) => {
-        e.preventDefault()
         if(username == '' || password == ''){
             window.alert("Please try again");
         }else{
@@ -19,6 +19,9 @@ export default function HomePage(){
             .then(function(doc) {
             if (doc.exists) {
                 if(password == doc.data().password){
+                    setUsername("")
+                    setPassword("")
+                    setRedirect(true)
                     return true
                 }
                 window.alert("invalid password");
@@ -29,6 +32,9 @@ export default function HomePage(){
                 window.alert(error);
             })
         }
+        setUsername("")
+        setPassword("")
+        setRedirect(false)
         return false
         /*userCollection.doc("GDzlo9si8rB0tyXE8mJk").set({
             name: "Los Angeles",
@@ -43,14 +49,16 @@ export default function HomePage(){
         });*/
     }
 
+    if(redirect){
+        return <Redirect to="/AdminPage"/>
+    }
+
     return (
         <div>
             <header class="header">
-                <form onSubmit={login}>
-                    <input type="text" class="form_user" id="Username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required=""/>
-                    <input type="password" class="form_pass" id="Password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required=""/>
-                    <button type="submit" class="form_login">Login</button>
-                </form>
+                <input type="text" class="form_user" id="Username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required=""/>
+                <input type="password" class="form_pass" id="Password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required=""/>
+                <button type="submit" class="form_login" onClick={login}>Login</button>
             </header>
             <body class="body">
                 body

@@ -6,7 +6,7 @@ export default function AdminPage(){
     return (
         <div>
             <header class="header">
-                header
+                AdminPage
             </header>
             <body class="body">
                 body
