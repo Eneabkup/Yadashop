@@ -81,7 +81,7 @@ background-size: cover;
   font-size: 14px;
 }
 
-input, select {
+.input-admin, select {
   width: 60%;
   padding: 12px 20px;
   margin: 8px 0;
