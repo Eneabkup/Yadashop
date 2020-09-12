@@ -5,6 +5,13 @@
 }
 
 .body {
+    background-image: 
+  linear-gradient(to right bottom, 
+   rgba(76, 216, 255, 0.8),
+   rgba(30, 108, 217, 0.8)),
+   url('https://images.pexels.com/photos/213399/pexels-photo-213399.jpeg');
+  
+  background-size: cover;
     background-color: #FFFFFF;
     text-align: center;
     padding: 500px;
@@ -15,3 +22,4 @@
     text-align: center;
     padding: 10px;
   }
+  
