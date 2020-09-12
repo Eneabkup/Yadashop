@@ -9,7 +9,8 @@ export default function StockSetupPage(){
     const [price , setPrice] = useState("")
     const [status , setStatus] = useState(false)
 
-    const setEquipment = () => {
+    const setEquipment = (e) => {
+        e.preventDefault()
         if(nameEquipment == "" || amount == "" || price == "" || isNaN(parseInt(amount)) || isNaN(parseFloat(price))){
             window.alert("Please try again")
             setNameEquipment("")
@@ -27,10 +28,13 @@ export default function StockSetupPage(){
             price : parseFloat(price),
             status : status
         });
-        setNameEquipment("")
-        setAmount("")
-        setPrice("")
-        setStatus(false)
+        setTimeout(function(){
+            setNameEquipment("")
+            setAmount("")
+            setPrice("")
+            setStatus(false)
+            window.location.reload()
+        }, 500);
         return true
     }
 

@@ -52,7 +52,6 @@ export default function HomePage(){
                 YadaShop
             </body>
             <footer class="footer">
-                
             </footer>
         </div>
     );
