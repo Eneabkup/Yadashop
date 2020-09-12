@@ -49,7 +49,7 @@ export default function HomePage(){
                 <button type="submit" class="form_login" onClick={login}>Login</button>
             </header>
             <body class="body">
-                body
+                YadaShop
             </body>
             <footer class="footer">
                 footer
