@@ -19,11 +19,13 @@ export default function UserSetupPage(){
             password: password,
             name: nameUser
         });
-        setUsername("")
-        setPassword("")
-        setNameUser("")
-        window.alert("Success")
-        window.location.reload()
+        setTimeout(function(){
+            setUsername("")
+            setPassword("")
+            setNameUser("")
+            window.alert("Success")
+            window.location.reload()
+        }, 500);
         return true
     }
     
