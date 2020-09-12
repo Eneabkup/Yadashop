@@ -23,11 +23,11 @@ export default function UserSetupPage(){
         setPassword("")
         setNameUser("")
         window.alert("Success")
+        window.location.reload()
         return true
     }
     
     const [lists , setLists] = useState([])
-
 
     const readUser = (e) => {
         e.preventDefault()
@@ -43,11 +43,20 @@ export default function UserSetupPage(){
                 tmpLists.push(taskformat)
             });
         });
-        setLists(tmpLists)
+        
+        setTimeout(function(){
+            setLists(tmpLists)
+            window.alert("Success")
+        }, 500);
     }
 
     const deleteItem = (e) =>{
-
+        console.log(e)
+        userCollection.doc(e).delete()
+        setTimeout(function(){
+            window.alert("Delete Success!")
+            window.location.reload()
+        }, 500);
     }
 
     return (
@@ -60,28 +69,32 @@ export default function UserSetupPage(){
                     <h1 class="heading-primary">
                         <span class="heading-primary-main">Management</span>
                         <span class="heading-primary-sub">User</span>
+                        <a href="#" class="btn btn-white btn-animated" onClick={readUser}>Get User</a>
                     </h1>
-                    <div>
-                        <a href="/UserSetupPage" class="btn btn-white btn-animated" onClick={readUser}>Get User</a>
-                        <a href="#" class="btn btn-white btn-animated">Get User</a>
-                    </div>
-                    <div>
-
-                    </div>
-                    <div>
-                    {
-                        lists.map((Item) => {
-                            return(
-                                <div>
-                                    <a>{Item.username}</a>
-                                    <a>{Item.password}</a>
-                                    <a>{Item.name}</a>
-                                    <button>delete</button>
-                                </div>
-                            )
-                        })
-                    }
-                    </div>
+                    <center>
+                    <h5 class="heading-primary">
+                        <table>
+                            <tr>
+                              <th>Username</th>
+                              <th>Password</th>
+                              <th>Name</th>
+                              <th>Delete</th>
+                            </tr>
+                        {
+                            lists.map((Item) => {
+                                return(
+                                    <tr key={Item.username}>
+                                        <td>{Item.username}</td>
+                                        <td>{Item.password}</td>
+                                        <td>{Item.name}</td>
+                                        <button  onClick={() => deleteItem(Item.username)}>delete</button>
+                                    </tr>
+                                )
+                            })
+                        }
+                        </table>
+                    </h5>
+                    </center>
                     <h1>
                         <input type="text" class="input-admin" id="Username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required=""/>
                         <input type="password" class="input-admin" id="Password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required=""/>

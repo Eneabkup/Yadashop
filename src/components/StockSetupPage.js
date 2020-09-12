@@ -46,7 +46,6 @@ export default function StockSetupPage(){
                         <span class="heading-primary-sub">Stock</span>
                         <a href="#" class="btn btn-white btn-animated">Get Stock</a>
                     </h1>
-                        <a>sdfasdf</a>
                     <h1>
                         <form>
                             <input type="text" class="input-admin" id="Name" placeholder="Name" value={nameEquipment} onChange={(e) => setNameEquipment(e.target.value)} required=""/>
