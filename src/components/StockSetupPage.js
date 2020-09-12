@@ -33,6 +33,39 @@ export default function StockSetupPage(){
         setStatus(false)
         return true
     }
+
+    const [lists , setLists] = useState([])
+
+    const readEquipment = (e) => {
+        e.preventDefault()
+        const tmpLists = []
+        equipmentCollection.get()
+            .then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                const taskformat = {
+                    name : doc.id,
+                    amount : doc.data().amount,
+                    price : doc.data().price,
+                    status : doc.data().status
+                }
+                tmpLists.push(taskformat)
+            });
+        });
+        
+        setTimeout(function(){
+            setLists(tmpLists)
+            window.alert("Success")
+        }, 500);
+    }
+
+    const deleteItem = (e) =>{
+        console.log(e)
+        equipmentCollection.doc(e).delete()
+        setTimeout(function(){
+            window.alert("Delete Success!")
+            window.location.reload()
+        }, 500);
+    }
     
     return (
         <div>
@@ -44,8 +77,32 @@ export default function StockSetupPage(){
                     <h1 class="heading-primary">
                         <span class="heading-primary-main">Management</span>
                         <span class="heading-primary-sub">Stock</span>
-                        <a href="#" class="btn btn-white btn-animated">Get Stock</a>
+                        <a href="#" class="btn btn-white btn-animated" onClick={readEquipment}>Get Stock</a>
                     </h1>
+                    <center>
+                    <h5 class="heading-primary">
+                        <table>
+                            <tr>
+                              <th>Name</th>
+                              <th>Amount</th>
+                              <th>Price</th>
+                              <th>Delete</th>
+                            </tr>
+                        {
+                            lists.map((Item) => {
+                                return(
+                                    <tr key={Item.name}>
+                                        <td>{Item.name}</td>
+                                        <td>{Item.amount}</td>
+                                        <td>{Item.price}</td>
+                                        <button  onClick={() => deleteItem(Item.name)}>delete</button>
+                                    </tr>
+                                )
+                            })
+                        }
+                        </table>
+                    </h5>
+                    </center>
                     <h1>
                         <form>
                             <input type="text" class="input-admin" id="Name" placeholder="Name" value={nameEquipment} onChange={(e) => setNameEquipment(e.target.value)} required=""/>
