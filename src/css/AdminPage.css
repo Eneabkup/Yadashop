@@ -2,13 +2,14 @@
   height: 100vh;
   background-image: 
   linear-gradient(to right bottom, 
-   rgba(76, 216, 255, 0.8),
-   rgba(30, 108, 217, 0.8)),
-   url('https://images.pexels.com/photos/213399/pexels-photo-213399.jpeg');
+   rgba(80, 80, 80, 0.8),
+   rgba(60, 63, 66, 0.8)),
+   url('https://wallpaperboat.com/wp-content/uploads/2019/05/lion-art-011.jpg');
   
   background-size: cover;
   background-position: top;
   position: relative;
+  padding: 500px;
 }
 
 .brand-box {
@@ -24,7 +25,6 @@
 
 .text-box {
   position: absolute;
-  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
@@ -87,4 +87,17 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table, th, td {
+  text-align: center;
+  border: 1px solid black;
+}
+th {
+  width: 100px;
+  height: 50px;
 }

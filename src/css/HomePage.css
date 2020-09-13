@@ -6,10 +6,10 @@
 
 .body {
     background-image: 
-  linear-gradient(to right bottom, 
-   rgba(76, 216, 255, 0.8),
-   rgba(30, 108, 217, 0.8)),
-   url('https://images.pexels.com/photos/213399/pexels-photo-213399.jpeg');
+    linear-gradient(to right bottom, 
+    rgba(80, 80, 80, 0.8),
+    rgba(60, 63, 66, 0.8)),
+    url('https://wallpaperboat.com/wp-content/uploads/2019/05/lion-art-011.jpg');
   
   background-size: cover;
     background-color: #FFFFFF;
