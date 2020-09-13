@@ -1,0 +1,25 @@
+.header {
+    background-color: #000000;
+    text-align: center;
+    padding: 20px;
+}
+
+.body {
+    background-image: 
+    linear-gradient(to right bottom, 
+    rgba(80, 80, 80, 0.8),
+    rgba(60, 63, 66, 0.8)),
+    url('https://wallpaperboat.com/wp-content/uploads/2019/05/lion-art-011.jpg');
+  
+  background-size: cover;
+    background-color: #FFFFFF;
+    text-align: center;
+    padding: 500px;
+}
+
+.footer {
+    background-color: #000000;
+    text-align: center;
+    padding: 10px;
+  }
+  
