@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/yadashop/static/css/main.48c8669d.chunk.css",
+    "main.js": "/yadashop/static/js/main.8deb7847.chunk.js",
+    "main.js.map": "/yadashop/static/js/main.8deb7847.chunk.js.map",
+    "runtime-main.js": "/yadashop/static/js/runtime-main.e29ba48a.js",
+    "runtime-main.js.map": "/yadashop/static/js/runtime-main.e29ba48a.js.map",
+    "static/js/2.69bafc87.chunk.js": "/yadashop/static/js/2.69bafc87.chunk.js",
+    "static/js/2.69bafc87.chunk.js.map": "/yadashop/static/js/2.69bafc87.chunk.js.map",
+    "index.html": "/yadashop/index.html",
+    "precache-manifest.adc87a259b84cdf7ce22855e58b24ea2.js": "/yadashop/precache-manifest.adc87a259b84cdf7ce22855e58b24ea2.js",
+    "service-worker.js": "/yadashop/service-worker.js",
+    "static/css/main.48c8669d.chunk.css.map": "/yadashop/static/css/main.48c8669d.chunk.css.map",
+    "static/js/2.69bafc87.chunk.js.LICENSE.txt": "/yadashop/static/js/2.69bafc87.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e29ba48a.js",
+    "static/js/2.69bafc87.chunk.js",
+    "static/css/main.48c8669d.chunk.css",
+    "static/js/main.8deb7847.chunk.js"
+  ]
+}
