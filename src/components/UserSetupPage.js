@@ -13,6 +13,9 @@ export default function UserSetupPage(){
         e.preventDefault()
         if(username == "" || password == "" || nameUser == ""){
             window.alert("Please try again")
+            setUsername("")
+            setPassword("")
+            setNameUser("")
             return false
         }
         userCollection.doc(username).set({
