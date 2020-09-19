@@ -11,7 +11,7 @@ import './App.css';
 function App() {
   return (
     <BrowserRouter>
-      <Route exact path = "/yadashop" component = {HomePage}/>
+      <Route exact path = "/" component = {HomePage}/>
       <Route path="/AdminPage" component = {AdminPage}/>
       <Route path="/OrderSetupPage" component = {OrderSetupPage}/>
       <Route path="/StockSetupPage" component = {StockSetupPage}/>
