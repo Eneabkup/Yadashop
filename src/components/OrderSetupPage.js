@@ -21,10 +21,9 @@ export default function UserSetupPage(){
                 tmpLists.push(taskformat)
             });
         });
-        
+        window.alert("Success")
         setTimeout(function(){
             setLists(tmpLists)
-            window.alert("Success")
         }, 500);
     }
 

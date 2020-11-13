@@ -1,5 +1,5 @@
 import React , { useState } from 'react';
-import { product } from '../firebase'
+import { product , firebase } from '../firebase'
 import '../css/AdminPage.css';
 
 export default function ProductSetupPage(){
@@ -13,18 +13,39 @@ export default function ProductSetupPage(){
 
     const setProduct = (e) => {
         e.preventDefault()
-        if(name == "" || weight == "" || price == "" || amount == "" || image == ""){
+        const text = ""
+        if(name == "" || weight == "" || price == "" || amount == ""){
             window.alert("Please try again")
         }else if(isNaN(parseInt(weight) || isNaN(parseFloat(price)) || isNaN(parseInt(amount)))){
             window.alert("Please check format weight price and amount again!")
+        }else if(isNaN(document.querySelector("#photo").files[0])){
+            window.alert("Please upload product image")
+        }else{
+            const ref = firebase.storage().ref();
+            const file = document.querySelector("#photo").files[0];
+            const imageName = file.name
+            const metadata = {
+            contentType: file.type
+            };
+            const task = ref.child(imageName).put(file, metadata);
+            task
+            .then(snapshot => snapshot.ref.getDownloadURL())
+            .then(url => {
+                console.log(url);
+                const image = document.querySelector("#image").src = url;
+                image.src = url 
+            })
+            .catch(console.error);
+
+            product.doc(productID).set({
+                name: name,
+                weight: parseInt(weight),
+                price: parseFloat(price),
+                amount: parseInt(amount),
+                image: imageName
+            });
+            window.alert("Success")
         }
-        product.doc(productID).set({
-            name: name,
-            weight: parseInt(weight),
-            price: parseFloat(price),
-            amount: parseInt(amount),
-            image: image
-        });
         setTimeout(function(){
             setProductID("")
             setWeight("")
@@ -32,7 +53,6 @@ export default function ProductSetupPage(){
             setAmount("")
             setImage("")
             setName("")
-            window.alert("Success")
             window.location.reload()
         }, 500);
     }
@@ -62,6 +82,7 @@ export default function ProductSetupPage(){
             window.alert("Success")
         }, 500);
     }
+
 
     const deleteItem = (e) =>{
         product.doc(e).delete()
@@ -120,7 +141,7 @@ export default function ProductSetupPage(){
                             <input type="text" class="input-admin" id="Weight" placeholder="Weight" value={weight} onChange={(e) => setWeight(e.target.value)} required=""/>
                             <input type="text" class="input-admin" id="Price" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} required=""/>
                             <input type="text" class="input-admin" id="Amount" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} required=""/>
-                            <input type="text" class="input-admin" id="Image" placeholder="Image" value={image} onChange={(e) => setImage(e.target.value)} required=""/>
+                            <input type="file" class="input-admin" id="photo"/>
                             <div><a href="#" class="btn btn-white btn-animated" onClick = {setProduct}>Add/Update</a></div>
                         </form>
                     </h1>

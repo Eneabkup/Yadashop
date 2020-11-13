@@ -11,9 +11,9 @@ const firebaseConfig = {
     measurementId: "G-GQK0BSQVG2"
 };
 
-const app = initializeApp(firebaseConfig)
+export const firebase = initializeApp(firebaseConfig)
 
-export const db = app.firestore()
+export const db = firebase.firestore()
 export const bill = db.collection('Bill')
 export const customer = db.collection('Customer')
 export const detail = db.collection('Detail')
