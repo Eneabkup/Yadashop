@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { orderCollection } from '../firebase'
+import { order } from '../firebase'
 import '../css/AdminPage.css';
 
 export default function UserSetupPage(){
@@ -9,22 +9,14 @@ export default function UserSetupPage(){
     const readOrder = (e) => {
         e.preventDefault()
         const tmpLists = []
-        orderCollection.get()
+        order.get()
             .then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
-                var orderStatus = 'Pending'
-                if(doc.data().status){
-                    orderStatus = 'Done'
-                }
                 const taskformat = {
                     id : doc.id,
-                    name : doc.data().name,
-                    address : doc.data().address,
-                    phone : doc.data().phone,
-                    product : doc.data().product,
-                    amount : doc.data().amount,
-                    status : doc.data().status,
-                    orderStatus : orderStatus
+                    customerID : doc.data().customerID,
+                    date : doc.data().date,
+                    status : doc.data().status
                 }
                 tmpLists.push(taskformat)
             });
@@ -36,28 +28,8 @@ export default function UserSetupPage(){
         }, 500);
     }
 
-    const updateItem = (e , s) =>{
-        console.log(e,s)
-        orderCollection.doc(e).set({
-            name : s.name,
-            address : s.address,
-            phone : s.phone,
-            product : s.product,
-            amount : s.amount,
-            status : !s.status
-        });
-        setTimeout(function(){
-            window.alert("Update Success!")
-            window.location.reload()
-        }, 500);
-    }
-
-    const deleteItem = (e) =>{
-        orderCollection.doc(e).delete()
-        setTimeout(function(){
-            window.alert("Delete Success!")
-            window.location.reload()
-        }, 500);
+    const getDetail = (e , f) =>{
+        
     }
 
     return (
@@ -76,26 +48,21 @@ export default function UserSetupPage(){
                     <h5 class="heading-primary">
                         <table>
                             <tr>
-                              <th>Name</th>
-                              <th>Address</th>
-                              <th>Phone</th>
-                              <th>Product</th>
-                              <th>Amount</th>
+                              <th>OrderID</th>
+                              <th>CustomerID</th>
+                              <th>Date</th>
                               <th>Status</th>
-                              <th>Condition</th>
+                              <th>Get</th>
                             </tr>
                         {
                             lists.map((Item) => {
                                 return(
                                     <tr key={Item.id}>
-                                        <td>{Item.name}</td>
-                                        <td>{Item.address}</td>
-                                        <td>{Item.phone}</td>
-                                        <td>{Item.product}</td>
-                                        <td>{Item.amount}</td>
-                                        <td>{Item.orderStatus}</td>
-                                        <button  onClick={() => updateItem(Item.id,Item)}>update</button>
-                                        <button  onClick={() => deleteItem(Item.id)}>delete</button>
+                                        <td>{Item.id}</td>
+                                        <td>{Item.customerID}</td>
+                                        <td>{Item.date}</td>
+                                        <td>{Item.status}</td>
+                                        <button  onClick={() => getDetail(Item.id,Item.customerID)}>Detail</button>
                                     </tr>
                                 )
                             })
@@ -103,8 +70,8 @@ export default function UserSetupPage(){
                         </table>
                     </h5>
                     </center>
-                    <a href="/UserSetupPage" class="btn btn-white btn-animated">User</a>
-                    <a href="/StockSetupPage" class="btn btn-white btn-animated">Stock</a>
+                    <a href="/EmployeeSetupPage" class="btn btn-white btn-animated">User</a>
+                    <a href="/ProductSetupPage" class="btn btn-white btn-animated">Stock</a>
                     <a href="/OrderSetupPage" class="btn btn-white btn-animated">Order</a>
                     <a href="/" class="btn btn-white btn-animated">Logout</a>
                 </div>

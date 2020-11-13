@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { userCollection } from '../firebase'
+import { employee } from '../firebase'
 import { Redirect } from "react-router-dom";
 
 import '../css/HomePage.css';
@@ -13,7 +13,7 @@ export default function HomePage(){
         if(username == '' || password == ''){
             window.alert("Please try again");
         }else{
-            userCollection.doc(username)
+            employee.doc(username)
             .get()
             .then(function(doc) {
             if (doc.exists) {

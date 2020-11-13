@@ -15,8 +15,8 @@ export default function AdminPage(){
                         <span class="heading-primary-main">Management</span>
                         <span class="heading-primary-sub">Please select</span>
                     </h1>
-                    <a href="/UserSetupPage" class="btn btn-white btn-animated">User</a>
-                    <a href="/StockSetupPage" class="btn btn-white btn-animated">Stock</a>
+                    <a href="/EmployeeSetupPage" class="btn btn-white btn-animated">User</a>
+                    <a href="/ProductSetupPage" class="btn btn-white btn-animated">Stock</a>
                     <a href="/OrderSetupPage" class="btn btn-white btn-animated">Order</a>
                     <a href="/" class="btn btn-white btn-animated">Logout</a>
                 </div>
