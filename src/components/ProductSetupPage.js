@@ -8,34 +8,24 @@ export default function ProductSetupPage(){
     const [weight , setWeight] = useState("")
     const [price , setPrice] = useState("")
     const [amount , setAmount] = useState("")
-    const [image , setImage] = useState("")
-    
 
     const setProduct = (e) => {
         e.preventDefault()
-        const text = ""
         if(name == "" || weight == "" || price == "" || amount == ""){
             window.alert("Please try again")
         }else if(isNaN(parseInt(weight) || isNaN(parseFloat(price)) || isNaN(parseInt(amount)))){
             window.alert("Please check format weight price and amount again!")
-        }else if(isNaN(document.querySelector("#photo").files[0])){
+        }else if(typeof document.querySelector("#photo").files[0] == 'undefined'){
             window.alert("Please upload product image")
         }else{
             const ref = firebase.storage().ref();
             const file = document.querySelector("#photo").files[0];
             const imageName = file.name
             const metadata = {
-            contentType: file.type
+                contentType: file.type
             };
-            const task = ref.child(imageName).put(file, metadata);
-            task
-            .then(snapshot => snapshot.ref.getDownloadURL())
-            .then(url => {
-                console.log(url);
-                const image = document.querySelector("#image").src = url;
-                image.src = url 
-            })
-            .catch(console.error);
+            ref.child(imageName).put(file, metadata);
+            
 
             product.doc(productID).set({
                 name: name,
@@ -51,7 +41,6 @@ export default function ProductSetupPage(){
             setWeight("")
             setPrice("")
             setAmount("")
-            setImage("")
             setName("")
             window.location.reload()
         }, 500);
@@ -71,12 +60,16 @@ export default function ProductSetupPage(){
                     weight: doc.data().weight,
                     price: doc.data().price,
                     amount: doc.data().amount,
-                    image: doc.data().image
+                    image: doc.data().image,
+                    url: ""
                 }
+                const ref = firebase.storage().ref("/" + doc.data().image)
+                ref.getDownloadURL().then(function(url){
+                    taskformat.url = url
+                })
                 tmpLists.push(taskformat)
             });
         });
-        
         setTimeout(function(){
             setLists(tmpLists)
             window.alert("Success")
@@ -91,6 +84,7 @@ export default function ProductSetupPage(){
             window.location.reload()
         }, 500);
     }
+
     
     return (
         <div>
@@ -108,7 +102,7 @@ export default function ProductSetupPage(){
                     <h5 class="heading-primary">
                         <table>
                             <tr>
-
+                              <th>Image</th>
                               <th>ID</th>
                               <th>Name</th>
                               <th>Weight</th>
@@ -120,13 +114,13 @@ export default function ProductSetupPage(){
                             lists.map((Item) => {
                                 return(
                                     <tr key={Item.productID}>
-
+                                        <img src={Item.url} width="100" height="100"/>
                                         <td>{Item.productID}</td>
                                         <td>{Item.name}</td>
                                         <td>{Item.weight}</td>
                                         <td>{Item.price}</td>
                                         <td>{Item.amount}</td>
-                                        <button  onClick={() => deleteItem(Item.productID)}>delete</button>
+                                        <td class="btn btn-white btn-animated" onClick={() => deleteItem(Item.productID)}>delete</td>
                                     </tr>
                                 )
                             })
