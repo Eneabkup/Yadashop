@@ -1,20 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { order , customer , detail , payment , bill} from '../firebase'
 import '../css/main.css';
 
-export default function AdminPage(){
-    
+export default function OrderDetailPage(props){
+
+    const [mounted, setMounted] = useState(false)
+
+    if(!mounted){
+        setMounted(true)
+    }
+
     return (
         <div>
             <body class="body">
                 <div class="brand-box">
-                    <span class="brand">Basket</span>
+                    <span class="brand">Admin</span>
                     <br></br>
                     <a href="/" class="btn btn-white btn-animated">Logout</a>
                 </div>
                 <center>
                     <h1 class="heading-primary">
                         <span class="heading-primary-main">Management</span>
-                        <span class="heading-primary-sub">Please select</span>
+                        <span class="heading-primary-sub">Order {props.orderID} Detail</span>
                     </h1>
                 </center>
                 <div class="text-box">
@@ -24,5 +31,5 @@ export default function AdminPage(){
                 </div>
             </body>
         </div>
-    );
+    )
 }
