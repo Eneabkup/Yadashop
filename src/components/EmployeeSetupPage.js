@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { employee } from '../firebase'
-import '../css/AdminPage.css';
+import '../css/main.css';
 
 export default function EmployeeSetupPage(){
 
@@ -79,17 +79,35 @@ export default function EmployeeSetupPage(){
 
     return (
         <div>
-            <header class="header-admin">
+            <body class="body">
                 <div class="brand-box">
                     <span class="brand">Admin</span>
                 </div>
-                <div class="text-box">
+                <center>
                     <h1 class="heading-primary">
                         <span class="heading-primary-main">Management</span>
                         <span class="heading-primary-sub">User</span>
-                        <a href="#" class="btn btn-white btn-animated" onClick={readEmployee}>Get User</a>
                     </h1>
-                    <center>
+                </center>
+                <div class="text-box">
+                    <a href="/EmployeeSetupPage" class="btn btn-white btn-animated">User</a>
+                    <a href="/ProductSetupPage" class="btn btn-white btn-animated">Stock</a>
+                    <a href="/OrderSetupPage" class="btn btn-white btn-animated">Order</a>
+                    <a href="/" class="btn btn-white btn-animated">Logout</a>
+                </div>
+                <div class="text-box">
+                    <h1>
+                        <input type="text" class="input-admin" id="Username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required=""/>
+                        <input type="password" class="input-admin" id="Password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required=""/>
+                        <input type="text" class="input-admin" id="Name" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required=""/>
+                        <input type="text" class="input-admin" id="Age" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} required=""/>
+                        <input type="text" class="input-admin" id="Sex" placeholder="Sex" value={sex} onChange={(e) => setSex(e.target.value)} required=""/>
+                        <input type="text" class="input-admin" id="Phonenumber" placeholder="Phonenumber" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} required=""/>
+                        <div><a href="#" class="btn btn-white btn-animated" onClick = {setEmployee}>Add/Update</a></div>
+                    </h1>
+                </div>
+                <div>
+                <center>
                     <h5 class="heading-primary">
                         <table>
                             <tr>
@@ -118,22 +136,10 @@ export default function EmployeeSetupPage(){
                         }
                         </table>
                     </h5>
-                    </center>
-                    <h1>
-                        <input type="text" class="input-admin" id="Username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required=""/>
-                        <input type="password" class="input-admin" id="Password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required=""/>
-                        <input type="text" class="input-admin" id="Name" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required=""/>
-                        <input type="text" class="input-admin" id="Age" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} required=""/>
-                        <input type="text" class="input-admin" id="Sex" placeholder="Sex" value={sex} onChange={(e) => setSex(e.target.value)} required=""/>
-                        <input type="text" class="input-admin" id="Phonenumber" placeholder="Phonenumber" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} required=""/>
-                        <div><a href="#" class="btn btn-white btn-animated" onClick = {setEmployee}>Add/Update</a></div>
-                    </h1>
-                    <a href="/EmployeeSetupPage" class="btn btn-white btn-animated">User</a>
-                    <a href="/ProductSetupPage" class="btn btn-white btn-animated">Stock</a>
-                    <a href="/OrderSetupPage" class="btn btn-white btn-animated">Order</a>
-                    <a href="/" class="btn btn-white btn-animated">Logout</a>
+                </center>
                 </div>
-            </header>
+                <a href="#" class="btn btn-white btn-animated" onClick={readEmployee}>Get User</a>
+            </body>
         </div>
     )
 }

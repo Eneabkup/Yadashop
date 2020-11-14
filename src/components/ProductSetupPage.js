@@ -1,6 +1,6 @@
 import React , { useState } from 'react';
 import { product , firebase } from '../firebase'
-import '../css/AdminPage.css';
+import '../css/main.css';
 
 export default function ProductSetupPage(){
     const [productID , setProductID] = useState("")
@@ -88,7 +88,7 @@ export default function ProductSetupPage(){
     
     return (
         <div>
-            <header class="header-admin">
+            <body class="body">
                 <div class="brand-box">
                     <span class="brand">Admin</span>
                 </div>
@@ -144,7 +144,7 @@ export default function ProductSetupPage(){
                     <a href="/OrderSetupPage" class="btn btn-white btn-animated">Order</a>
                     <a href="/" class="btn btn-white btn-animated">Logout</a>
                 </div>
-            </header>
+            </body>
         </div>
     )
 }

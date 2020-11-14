@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { order } from '../firebase'
-import '../css/AdminPage.css';
+import '../css/main.css';
 
 export default function UserSetupPage(){
 

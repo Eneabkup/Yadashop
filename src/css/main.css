@@ -1,16 +1,17 @@
-.header-admin {
-  height: 100vh;
-  background-image: 
-  linear-gradient(to right bottom, 
-   rgba(80, 80, 80, 0.8),
-   rgba(60, 63, 66, 0.8)),
-   url('https://wallpaperboat.com/wp-content/uploads/2019/05/lion-art-011.jpg');
-  
-  background-size: cover;
-  background-position: top;
-  position: relative;
-  padding: 500px;
+.header {
+    background-color: #000000;
+    text-align: center;
 }
+
+.body {
+    background-size: cover;
+    background-color: #FFFFFF;
+    text-align: center;
+    height: 1920;
+    width: 1080;
+}
+
+
 
 .brand-box {
   position: absolute;
@@ -20,7 +21,7 @@
 
 .brand { 
   font-size: 20px;
-  color: #fff;
+  color: rgb(0, 0, 0);
 }
 
 .text-box {
@@ -31,7 +32,7 @@
 }
 
 .heading-primary {
-  color: #fff;
+  color: rgb(0, 0, 0);
   text-transform: uppercase;
 
   backface-visibility: hidden;
@@ -79,8 +80,8 @@
   font-size: 14px;
 }
 
-.input-admin, select {
-  width: 60%;
+.input, select {
+  width: 60;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
@@ -89,21 +90,7 @@
   box-sizing: border-box;
 }
 
-table {
-  border-collapse: collapse;
-}
 
-table, th, td{
-  text-align: center;
-  border: 1px solid black;
-}
-
-th {
-  width: 100px;
-  height: 50px;
-}
-
-tr {
-  display: table-row-group;
-  width: 100px
+img {
+  border-radius: 5px 5px 0 0;
 }
