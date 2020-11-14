@@ -12,6 +12,34 @@ export default function EmployeeSetupPage(){
     const [sex , setSex] = useState("")
     const [phoneNumber , setPhoneNumber] = useState("")
 
+    const [lists , setLists] = useState([])
+
+    const [mounted, setMounted] = useState(false)
+
+    if(!mounted){
+        setMounted(true)
+        const tmpLists = []
+        employee.get()
+            .then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                const taskformat = {
+                    username : doc.id,
+                    password : doc.data().password,
+                    name : doc.data().name,
+                    age : doc.data().age,
+                    sex : doc.data().sex,
+                    phoneNumber : doc.data().phoneNumber
+                }
+                tmpLists.push(taskformat)
+            });
+        });
+        
+        setTimeout(function(){
+            setLists(tmpLists)
+        }, 500);
+    }
+    
+
     const setEmployee = (e) => {
         e.preventDefault()
         if(username == "" || password == "" || name == "" || age == "" || sex == "" || phoneNumber == ""){
@@ -42,32 +70,6 @@ export default function EmployeeSetupPage(){
             }, 500);
         }
     }
-    
-    const [lists , setLists] = useState([])
-
-    const readEmployee = (e) => {
-        e.preventDefault()
-        const tmpLists = []
-        employee.get()
-            .then(function(querySnapshot) {
-                querySnapshot.forEach(function(doc) {
-                const taskformat = {
-                    username : doc.id,
-                    password : doc.data().password,
-                    name : doc.data().name,
-                    age : doc.data().age,
-                    sex : doc.data().sex,
-                    phoneNumber : doc.data().phoneNumber
-                }
-                tmpLists.push(taskformat)
-            });
-        });
-        
-        setTimeout(function(){
-            setLists(tmpLists)
-            window.alert("Success")
-        }, 500);
-    }
 
     const deleteItem = (e) =>{
         employee.doc(e).delete()
@@ -80,8 +82,10 @@ export default function EmployeeSetupPage(){
     return (
         <div>
             <body class="body">
-                <div class="brand-box">
+            <div class="brand-box">
                     <span class="brand">Admin</span>
+                    <br></br>
+                    <a href="/" class="btn btn-white btn-animated">Logout</a>
                 </div>
                 <center>
                     <h1 class="heading-primary">
@@ -93,22 +97,11 @@ export default function EmployeeSetupPage(){
                     <a href="/EmployeeSetupPage" class="btn btn-white btn-animated">User</a>
                     <a href="/ProductSetupPage" class="btn btn-white btn-animated">Stock</a>
                     <a href="/OrderSetupPage" class="btn btn-white btn-animated">Order</a>
-                    <a href="/" class="btn btn-white btn-animated">Logout</a>
                 </div>
-                <div class="text-box">
-                    <h1>
-                        <input type="text" class="input-admin" id="Username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required=""/>
-                        <input type="password" class="input-admin" id="Password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required=""/>
-                        <input type="text" class="input-admin" id="Name" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required=""/>
-                        <input type="text" class="input-admin" id="Age" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} required=""/>
-                        <input type="text" class="input-admin" id="Sex" placeholder="Sex" value={sex} onChange={(e) => setSex(e.target.value)} required=""/>
-                        <input type="text" class="input-admin" id="Phonenumber" placeholder="Phonenumber" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} required=""/>
-                        <div><a href="#" class="btn btn-white btn-animated" onClick = {setEmployee}>Add/Update</a></div>
-                    </h1>
-                </div>
-                <div>
+                <br></br>
+                <br></br>
+                <br></br>
                 <center>
-                    <h5 class="heading-primary">
                         <table>
                             <tr>
                               <th>Username</th>
@@ -119,7 +112,7 @@ export default function EmployeeSetupPage(){
                               <th>Phone</th>
                               <th>Delete</th>
                             </tr>
-                        {
+                            {
                             lists.map((Item) => {
                                 return(
                                     <tr key={Item.username}>
@@ -129,16 +122,30 @@ export default function EmployeeSetupPage(){
                                         <td>{Item.age}</td>
                                         <td>{Item.sex}</td>
                                         <td>{Item.phoneNumber}</td>
-                                        <button  onClick={() => deleteItem(Item.username)}>delete</button>
+                                        <td class="btn btn-red btn-animated" onClick={() => deleteItem(Item.username)}>delete</td>
                                     </tr>
                                 )
                             })
-                        }
+                            }
                         </table>
-                    </h5>
                 </center>
-                </div>
-                <a href="#" class="btn btn-white btn-animated" onClick={readEmployee}>Get User</a>
+                <br></br>
+                <br></br>
+                <br></br>
+                <h1>
+                    <input type="text" class="input" id="Username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required=""/>
+                    <br></br>
+                    <input type="password" class="input" id="Password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required=""/>
+                    <br></br>
+                    <input type="text" class="input" id="Name" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required=""/>
+                    <br></br>
+                    <input type="text" class="input" id="Age" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} required=""/>
+                    <br></br>
+                    <input type="text" class="input" id="Sex" placeholder="Sex" value={sex} onChange={(e) => setSex(e.target.value)} required=""/>
+                    <br></br>
+                    <input type="text" class="input" id="Phonenumber" placeholder="Phonenumber" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} required=""/>
+                    <div><a href="#" class="btn btn-white btn-animated" onClick = {setEmployee}>Add/Update</a></div>
+                </h1>
             </body>
         </div>
     )

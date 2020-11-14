@@ -6,8 +6,10 @@ export default function UserSetupPage(){
 
     const [lists , setLists] = useState([])
 
-    const readOrder = (e) => {
-        e.preventDefault()
+    const [mounted, setMounted] = useState(false)
+
+    if(!mounted){
+        setMounted(true)
         const tmpLists = []
         order.get()
             .then(function(querySnapshot) {
@@ -21,11 +23,11 @@ export default function UserSetupPage(){
                 tmpLists.push(taskformat)
             });
         });
-        window.alert("Success")
         setTimeout(function(){
             setLists(tmpLists)
         }, 500);
     }
+
 
     const getDetail = (e , f) =>{
         
@@ -33,19 +35,29 @@ export default function UserSetupPage(){
 
     return (
         <div>
-            <header class="header-admin">
+            <body class="body">
                 <div class="brand-box">
                     <span class="brand">Admin</span>
+                    <br></br>
+                    <a href="/" class="btn btn-white btn-animated">Logout</a>
                 </div>
-                <div class="text-box">
+                <center>
                     <h1 class="heading-primary">
                         <span class="heading-primary-main">Management</span>
                         <span class="heading-primary-sub">Order</span>
-                        <a href="#" class="btn btn-white btn-animated" onClick={readOrder}>Get Order</a>
                     </h1>
-                    <center>
-                    <h5 class="heading-primary">
-                        <table>
+                </center>
+                <div class="text-box">
+                    <a href="/EmployeeSetupPage" class="btn btn-white btn-animated">User</a>
+                    <a href="/ProductSetupPage" class="btn btn-white btn-animated">Stock</a>
+                    <a href="/OrderSetupPage" class="btn btn-white btn-animated">Order</a>
+                    
+                </div>
+                <br></br>
+                <br></br>
+                <br></br>
+                <center>
+                    <table>
                             <tr>
                               <th>OrderID</th>
                               <th>CustomerID</th>
@@ -53,7 +65,7 @@ export default function UserSetupPage(){
                               <th>Status</th>
                               <th>Get</th>
                             </tr>
-                        {
+                            {
                             lists.map((Item) => {
                                 return(
                                     <tr key={Item.id}>
@@ -61,20 +73,17 @@ export default function UserSetupPage(){
                                         <td>{Item.customerID}</td>
                                         <td>{Item.date}</td>
                                         <td>{Item.status}</td>
-                                        <button  onClick={() => getDetail(Item.id,Item.customerID)}>Detail</button>
+                                        <td class="btn btn-green btn-animated" onClick={() => getDetail(Item.id,Item.customerID)}>Detail</td>
                                     </tr>
                                 )
                             })
                         }
-                        </table>
-                    </h5>
-                    </center>
-                    <a href="/EmployeeSetupPage" class="btn btn-white btn-animated">User</a>
-                    <a href="/ProductSetupPage" class="btn btn-white btn-animated">Stock</a>
-                    <a href="/OrderSetupPage" class="btn btn-white btn-animated">Order</a>
-                    <a href="/" class="btn btn-white btn-animated">Logout</a>
-                </div>
-            </header>
+                    </table>
+                </center>
+                <br></br>
+                <br></br>
+                <br></br>
+            </body>
         </div>
     )
 }

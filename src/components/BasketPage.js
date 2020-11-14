@@ -8,6 +8,8 @@ export default function AdminPage(){
             <body class="body">
                 <div class="brand-box">
                     <span class="brand">Admin</span>
+                    <br></br>
+                    <a href="/" class="btn btn-white btn-animated">Logout</a>
                 </div>
                 <center>
                     <h1 class="heading-primary">
@@ -19,7 +21,6 @@ export default function AdminPage(){
                     <a href="/EmployeeSetupPage" class="btn btn-white btn-animated">User</a>
                     <a href="/ProductSetupPage" class="btn btn-white btn-animated">Stock</a>
                     <a href="/OrderSetupPage" class="btn btn-white btn-animated">Order</a>
-                    <a href="/" class="btn btn-white btn-animated">Logout</a>
                 </div>
             </body>
         </div>

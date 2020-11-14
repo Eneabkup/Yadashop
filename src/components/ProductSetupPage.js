@@ -9,6 +9,39 @@ export default function ProductSetupPage(){
     const [price , setPrice] = useState("")
     const [amount , setAmount] = useState("")
 
+    const [lists , setLists] = useState([])
+
+    const [mounted, setMounted] = useState(false)
+
+    if(!mounted){
+        setMounted(true)
+        const tmpLists = []
+        product.get()
+            .then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                const taskformat = {
+                    productID: doc.id,
+                    name: doc.data().name,
+                    weight: doc.data().weight,
+                    price: doc.data().price,
+                    amount: doc.data().amount,
+                    image: doc.data().image,
+                    url: ""
+                }
+                const ref = firebase.storage().ref("/" + doc.data().image)
+                ref.getDownloadURL().then(function(url){
+                    taskformat.url = url
+                })
+                tmpLists.push(taskformat)
+            });
+        });
+        setTimeout(function(){
+            setLists(tmpLists)
+        }, 500);
+    }
+
+    
+
     const setProduct = (e) => {
         e.preventDefault()
         if(name == "" || weight == "" || price == "" || amount == ""){
@@ -46,36 +79,6 @@ export default function ProductSetupPage(){
         }, 500);
     }
 
-    const [lists , setLists] = useState([])
-
-    const readProduct = (e) => {
-        e.preventDefault()
-        const tmpLists = []
-        product.get()
-            .then(function(querySnapshot) {
-                querySnapshot.forEach(function(doc) {
-                const taskformat = {
-                    productID: doc.id,
-                    name: doc.data().name,
-                    weight: doc.data().weight,
-                    price: doc.data().price,
-                    amount: doc.data().amount,
-                    image: doc.data().image,
-                    url: ""
-                }
-                const ref = firebase.storage().ref("/" + doc.data().image)
-                ref.getDownloadURL().then(function(url){
-                    taskformat.url = url
-                })
-                tmpLists.push(taskformat)
-            });
-        });
-        setTimeout(function(){
-            setLists(tmpLists)
-            window.alert("Success")
-        }, 500);
-    }
-
 
     const deleteItem = (e) =>{
         product.doc(e).delete()
@@ -89,18 +92,27 @@ export default function ProductSetupPage(){
     return (
         <div>
             <body class="body">
-                <div class="brand-box">
+            <div class="brand-box">
                     <span class="brand">Admin</span>
+                    <br></br>
+                    <a href="/" class="btn btn-white btn-animated">Logout</a>
                 </div>
-                <div class="text-box">
+                <center>
                     <h1 class="heading-primary">
                         <span class="heading-primary-main">Management</span>
                         <span class="heading-primary-sub">Stock</span>
-                        <a href="#" class="btn btn-white btn-animated" onClick={readProduct}>Get Stock</a>
                     </h1>
-                    <center>
-                    <h5 class="heading-primary">
-                        <table>
+                </center>
+                <div class="text-box">
+                    <a href="/EmployeeSetupPage" class="btn btn-white btn-animated">User</a>
+                    <a href="/ProductSetupPage" class="btn btn-white btn-animated">Stock</a>
+                    <a href="/OrderSetupPage" class="btn btn-white btn-animated">Order</a>
+                </div>
+                <br></br>
+                <br></br>
+                <br></br>
+                <center>
+                    <table>
                             <tr>
                               <th>Image</th>
                               <th>ID</th>
@@ -110,7 +122,7 @@ export default function ProductSetupPage(){
                               <th>Amount</th>
                               <th>Delete</th>
                             </tr>
-                        {
+                            {
                             lists.map((Item) => {
                                 return(
                                     <tr key={Item.productID}>
@@ -120,30 +132,32 @@ export default function ProductSetupPage(){
                                         <td>{Item.weight}</td>
                                         <td>{Item.price}</td>
                                         <td>{Item.amount}</td>
-                                        <td class="btn btn-white btn-animated" onClick={() => deleteItem(Item.productID)}>delete</td>
+                                        <td class="btn btn-red btn-animated" onClick={() => deleteItem(Item.productID)}>delete</td>
                                     </tr>
                                 )
                             })
-                        }
-                        </table>
-                    </h5>
-                    </center>
-                    <h1>
-                        <form>
-                            <input type="text" class="input-admin" id="ProductID" placeholder="ProductID" value={productID} onChange={(e) => setProductID(e.target.value)} required=""/>
-                            <input type="text" class="input-admin" id="Name" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required=""/>
-                            <input type="text" class="input-admin" id="Weight" placeholder="Weight" value={weight} onChange={(e) => setWeight(e.target.value)} required=""/>
-                            <input type="text" class="input-admin" id="Price" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} required=""/>
-                            <input type="text" class="input-admin" id="Amount" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} required=""/>
-                            <input type="file" class="input-admin" id="photo"/>
-                            <div><a href="#" class="btn btn-white btn-animated" onClick = {setProduct}>Add/Update</a></div>
-                        </form>
-                    </h1>
-                    <a href="/EmployeeSetupPage" class="btn btn-white btn-animated">User</a>
-                    <a href="/ProductSetupPage" class="btn btn-white btn-animated">Stock</a>
-                    <a href="/OrderSetupPage" class="btn btn-white btn-animated">Order</a>
-                    <a href="/" class="btn btn-white btn-animated">Logout</a>
-                </div>
+                            }
+                    </table>
+                </center>
+                <br></br>
+                <br></br>
+                <br></br>
+                <h1>
+                    <form>
+                        <input type="text" class="input" id="ProductID" placeholder="ProductID" value={productID} onChange={(e) => setProductID(e.target.value)} required=""/>
+                        <br></br>
+                        <input type="text" class="input" id="Name" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required=""/>
+                        <br></br>
+                        <input type="text" class="input" id="Weight" placeholder="Weight" value={weight} onChange={(e) => setWeight(e.target.value)} required=""/>
+                        <br></br>
+                        <input type="text" class="input" id="Price" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} required=""/>
+                        <br></br>
+                        <input type="text" class="input" id="Amount" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} required=""/>
+                        <br></br>
+                        <input type="file" class="input" id="photo"/>
+                        <div><a href="#" class="btn btn-white btn-animated" onClick = {setProduct}>Add/Update</a></div>
+                    </form>
+                </h1>
             </body>
         </div>
     )

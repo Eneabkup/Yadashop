@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { employee , product , firebase } from '../firebase'
 import { Redirect } from "react-router-dom";
-
 import '../css/main.css';
 
 export default function HomePage(){
@@ -68,7 +67,7 @@ export default function HomePage(){
     }
     
     if(redirect){
-        return <Redirect to="/AdminPage"/>
+        return <Redirect to="/EmployeeSetupPage"/>
     }else{
         return (
             <div>
@@ -82,7 +81,7 @@ export default function HomePage(){
                     {
                         lists.map((Item) => {
                             return(
-                                <a href="/EmployeeSetupPage" class="btn btn-white btn-animated" key={Item.productID} >
+                                <a href="/" class="btn btn-white btn-animated" key={Item.productID} >
                                     <br></br>
                                     <br></br>
                                     <img src={Item.url} width="200" height="200"/>

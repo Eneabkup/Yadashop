@@ -1,11 +1,11 @@
 .header {
-    background-color: #000000;
-    text-align: center;
+    background-color: #ffffff;
+    text-align: right;
 }
 
 .body {
     background-size: cover;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     text-align: center;
     height: 1920;
     width: 1080;
@@ -53,6 +53,9 @@
   letter-spacing: 7.4px;
 }
 
+
+
+
 .btn:link,
 .btn:visited {
   text-transform: uppercase;
@@ -80,6 +83,18 @@
   font-size: 14px;
 }
 
+.btn-red {
+  background-color: rgb(255, 159, 159);
+  color: rgb(0, 0, 0);
+  font-size: 14px;
+}
+
+.btn-green {
+  background-color: rgb(162, 255, 159);
+  color: rgb(0, 0, 0);
+  font-size: 14px;
+}
+
 .input, select {
   width: 60;
   padding: 12px 20px;
@@ -90,7 +105,42 @@
   box-sizing: border-box;
 }
 
-
 img {
   border-radius: 5px 5px 0 0;
+}
+
+
+
+table {
+  border-spacing: 1;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 6px;
+  overflow: hidden;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+table * {
+  position: relative;
+}
+table td, table th {
+  padding-left: 8px;
+}
+
+table th {
+  height: 60px;
+  background: #FFED86;
+  font-size: 16px;
+  text-align: center;
+}
+
+table tr {
+  height: 48px;
+  border-bottom: 1px solid #000000;
+}
+
+table td{
+  text-align: center;
 }
