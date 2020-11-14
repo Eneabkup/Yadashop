@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { order , customer , detail , payment , bill, product} from '../firebase'
+import { order , customer , detail , payment , bill , firebase} from '../firebase'
 import '../css/main.css';
 
 export default function OrderDetailPage(props){
+    const [weight , setWeight] = useState("")
+
     const [date , setDate ] = useState("")
     const [status , setStatus] = useState("")
     
@@ -14,6 +16,10 @@ export default function OrderDetailPage(props){
 
 
     const [lists , setLists] = useState([])
+
+
+    const [listsPayment , setListsPayment] = useState([])
+
 
     const [mounted, setMounted] = useState(false)
 
@@ -56,6 +62,27 @@ export default function OrderDetailPage(props){
             setLists(tmpLists)
         });
 
+        const tmpListsPayment = []
+        payment.get()
+            .then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                const taskformat = {
+                    id : doc.id,
+                    orderID : doc.data().orderID,
+                    date : doc.data().date,
+                    image : doc.data().image,
+                    url : ""
+                }
+                const ref = firebase.storage().ref("/" + doc.data().image)
+                ref.getDownloadURL().then(function(url){
+                    taskformat.url = url
+                })
+                if(taskformat.orderID == props.orderID){
+                    tmpListsPayment.push(taskformat)
+                }
+        });
+        setListsPayment(tmpListsPayment)
+    });
         setMounted(true)
     }
 
@@ -163,9 +190,40 @@ export default function OrderDetailPage(props){
                 </center>
                 <br></br>
                 <br></br>
+                <h1 class="heading-primary">
+                    <span class="heading-primary-sub">Payment</span>
+                </h1>
+                <br></br>
+                <center>
+                    <table>
+                            <tr>
+                              <th>Image</th>
+                              <th>Date</th>
+                              <th>Confirm</th>
+                            </tr>
+                            {
+                            listsPayment.map((Item) => {
+                                return(
+                                    <tr key={Item.productID}>
+                                        <center><a href={Item.url}><img src={Item.url} width="100" height="150"/></a></center>
+                                        <td>{Item.date}</td>
+                                        <td class="btn btn-green btn-animated">Confirm</td>
+                                    </tr>
+                                )
+                            })
+                            }
+                    </table>
+                </center>
+                <br></br>
+                <br></br>
+                <center>
+                    <a href="#" class="btn btn-blue btn-animated">Refresh</a>
+                </center>
+                <br></br>
+                <br></br>
                 <div>
                     <a href="#" class="btn btn-green btn-animated" onClick = {(e) => setOrder("Packed")}>Packed</a>
-                    <a href="#" class="btn btn-red btn-animated" onClick = {(e) => setOrder("Cancel")}>Cancel</a>
+                    <a href="#" class="btn btn-red btn-animated" onClick = {(e) => setOrder("Cancel")}>Cancel</a>    
                 </div>
             </body>
         </div>

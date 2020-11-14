@@ -122,7 +122,7 @@ export default function ProductSetupPage(){
                             lists.map((Item) => {
                                 return(
                                     <tr key={Item.productID}>
-                                        <img src={Item.url} width="100" height="100"/>
+                                        <img src={Item.url} width="100" height="100" />
                                         <td>{Item.productID}</td>
                                         <td>{Item.name}</td>
                                         <td>{Item.weight}</td>
@@ -134,6 +134,11 @@ export default function ProductSetupPage(){
                             })
                             }
                     </table>
+                </center>
+                <br></br>
+                <br></br>
+                <center>
+                    <a href="#" class="btn btn-blue btn-animated">Refresh</a>
                 </center>
                 <br></br>
                 <br></br>

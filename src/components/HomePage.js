@@ -76,11 +76,14 @@ export default function HomePage(){
                     <a href="#" class="btn btn-white btn-animated" onClick = {login}>Login</a>
                 </header>
                 <br></br>
+                <center>
+                    <a href="#" class="btn btn-blue btn-animated">Refresh</a>
+                </center>
                 <body class="body">
                     {
                         lists.map((Item) => {
                             return(
-                                <a href="/" class="btn btn-white btn-animated" key={Item.productID} >
+                                <a href="#" class="btn btn-white btn-animated" key={Item.productID} >
                                     <br></br>
                                     <br></br>
                                     <img src={Item.url} width="200" height="200"/>
