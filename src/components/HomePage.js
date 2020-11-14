@@ -9,6 +9,34 @@ export default function HomePage(){
     const [redirect , setRedirect] = useState(false)
     const [lists , setLists] = useState([])
 
+    const [mounted, setMounted] = useState(false)
+
+    if(!mounted){
+        setMounted(true)
+        const tmpLists = []
+        product.get()
+            .then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                const taskformat = {
+                    productID: doc.id,
+                    name: doc.data().name,
+                    weight: doc.data().weight,
+                    price: doc.data().price,
+                    amount: doc.data().amount,
+                    image: doc.data().image,
+                    url: ""
+                }
+                const ref = firebase.storage().ref("/" + doc.data().image)
+                ref.getDownloadURL().then(function(url){
+                    taskformat.url = url
+                })
+                tmpLists.push(taskformat)
+            });
+            setLists(tmpLists)
+        });
+    }
+    
+
     const login = (e) => {
         if(username == '' || password == ''){
             window.alert("Please try again");
@@ -37,35 +65,6 @@ export default function HomePage(){
         return false
     }
 
-    const [mounted, setMounted] = useState(false)
-
-    if(!mounted){
-        setMounted(true)
-        const tmpLists = []
-        product.get()
-            .then(function(querySnapshot) {
-                querySnapshot.forEach(function(doc) {
-                const taskformat = {
-                    productID: doc.id,
-                    name: doc.data().name,
-                    weight: doc.data().weight,
-                    price: doc.data().price,
-                    amount: doc.data().amount,
-                    image: doc.data().image,
-                    url: ""
-                }
-                const ref = firebase.storage().ref("/" + doc.data().image)
-                ref.getDownloadURL().then(function(url){
-                    taskformat.url = url
-                })
-                tmpLists.push(taskformat)
-            });
-        });
-        setTimeout(function(){
-            setLists(tmpLists)
-        }, 500);
-    }
-    
     if(redirect){
         return <Redirect to="/EmployeeSetupPage"/>
     }else{

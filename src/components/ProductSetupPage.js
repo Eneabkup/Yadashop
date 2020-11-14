@@ -34,10 +34,8 @@ export default function ProductSetupPage(){
                 })
                 tmpLists.push(taskformat)
             });
-        });
-        setTimeout(function(){
             setLists(tmpLists)
-        }, 500);
+        });
     }
 
     
@@ -66,26 +64,24 @@ export default function ProductSetupPage(){
                 price: parseFloat(price),
                 amount: parseInt(amount),
                 image: imageName
+            }).then(function(){    
+                setProductID("")
+                setWeight("")
+                setPrice("")
+                setAmount("")
+                setName("")
+                window.alert("Success")
+                window.location.reload()
             });
-            window.alert("Success")
         }
-        setTimeout(function(){
-            setProductID("")
-            setWeight("")
-            setPrice("")
-            setAmount("")
-            setName("")
-            window.location.reload()
-        }, 500);
     }
 
 
     const deleteItem = (e) =>{
-        product.doc(e).delete()
-        setTimeout(function(){
+        product.doc(e).delete().then(function(){    
             window.alert("Delete Success!")
             window.location.reload()
-        }, 500);
+        });
     }
 
     

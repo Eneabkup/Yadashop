@@ -7,6 +7,7 @@ import OrderDetailPage from '../components/OrderDetailPage'
 export default function OrderSetupPage(){
     const [redirect , setRedirect] = useState(false)
     const [orderID , setOrderID] = useState("")
+    const [customerID , setCustomerID] = useState("")
     const [lists , setLists] = useState([])
 
     const [mounted, setMounted] = useState(false)
@@ -25,19 +26,18 @@ export default function OrderSetupPage(){
                 }
                 tmpLists.push(taskformat)
             });
-        });
-        setTimeout(function(){
             setLists(tmpLists)
-        }, 500);
+        });
     }
 
-    const nextPage = (e) => {
+    const nextPage = (e , f) => {
         setRedirect(true)
         setOrderID(e)
+        setCustomerID(f)
     }
     
     if(redirect){
-        return <OrderDetailPage orderID={orderID}/>
+        return <OrderDetailPage orderID={orderID} customerID={customerID}/>
     }else{
         return (
             <div>
@@ -79,7 +79,7 @@ export default function OrderSetupPage(){
                                             <td>{Item.customerID}</td>
                                             <td>{Item.date}</td>
                                             <td>{Item.status}</td>
-                                            <td class="btn btn-green btn-animated"  onClick = {(e) => nextPage(Item.id)} >detail</td>
+                                            <td class="btn btn-green btn-animated"  onClick = {(e) => nextPage(Item.id , Item.customerID)} >detail</td>
                                         </tr>
                                     )
                                 })

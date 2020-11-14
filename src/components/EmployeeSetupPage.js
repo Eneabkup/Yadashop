@@ -32,11 +32,8 @@ export default function EmployeeSetupPage(){
                 }
                 tmpLists.push(taskformat)
             });
-        });
-        
-        setTimeout(function(){
             setLists(tmpLists)
-        }, 500);
+        });
     }
     
 
@@ -57,8 +54,7 @@ export default function EmployeeSetupPage(){
                 age: parseInt(age),
                 sex: sex,
                 phoneNumber: phoneNumber
-            });
-            setTimeout(function(){
+            }).then(function(){    
                 setUsername("")
                 setName("")
                 setAge("")
@@ -67,16 +63,15 @@ export default function EmployeeSetupPage(){
                 setPassword("")
                 window.alert("Success")
                 window.location.reload()
-            }, 500);
+            });
         }
     }
 
     const deleteItem = (e) =>{
-        employee.doc(e).delete()
-        setTimeout(function(){
+        employee.doc(e).delete().then(function(){    
             window.alert("Delete Success!")
             window.location.reload()
-        }, 500);
+        });
     }
 
     return (
