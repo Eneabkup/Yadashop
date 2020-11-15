@@ -57,7 +57,6 @@ export default function OrderSetupPage(){
                         <a href="/EmployeeSetupPage" class="btn btn-white btn-animated">User</a>
                         <a href="/ProductSetupPage" class="btn btn-white btn-animated">Stock</a>
                         <a href="/OrderSetupPage" class="btn btn-white btn-animated">Order</a>
-                        
                     </div>
                     <br></br>
                     <br></br>

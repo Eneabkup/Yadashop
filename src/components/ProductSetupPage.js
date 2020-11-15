@@ -26,12 +26,8 @@ export default function ProductSetupPage(){
                     price: doc.data().price,
                     amount: doc.data().amount,
                     image: doc.data().image,
-                    url: ""
+
                 }
-                const ref = firebase.storage().ref("/" + doc.data().image)
-                ref.getDownloadURL().then(function(url){
-                    taskformat.url = url
-                })
                 tmpLists.push(taskformat)
             });
             setLists(tmpLists)
@@ -55,24 +51,25 @@ export default function ProductSetupPage(){
             const metadata = {
                 contentType: file.type
             };
-            ref.child(imageName).put(file, metadata);
-            
 
-            product.doc(productID).set({
-                name: name,
-                weight: parseInt(weight),
-                price: parseFloat(price),
-                amount: parseInt(amount),
-                image: imageName
-            }).then(function(){    
-                setProductID("")
-                setWeight("")
-                setPrice("")
-                setAmount("")
-                setName("")
-                window.alert("Success")
-                window.location.reload()
-            });
+            const task = ref.child(imageName).put(file, metadata);
+            task.then(snapshot => snapshot.ref.getDownloadURL()).then(url => {
+                product.doc(productID).set({
+                    name: name,
+                    weight: parseInt(weight),
+                    price: parseFloat(price),
+                    amount: parseInt(amount),
+                    image: url
+                }).then(function(){    
+                    setProductID("")
+                    setWeight("")
+                    setPrice("")
+                    setAmount("")
+                    setName("")
+                    window.alert("Success")
+                    window.location.reload()
+                });
+            })
         }
     }
 
@@ -122,7 +119,7 @@ export default function ProductSetupPage(){
                             lists.map((Item) => {
                                 return(
                                     <tr key={Item.productID}>
-                                        <img src={Item.url} width="100" height="100" />
+                                        <img src={Item.image} width="100" height="100" />
                                         <td>{Item.productID}</td>
                                         <td>{Item.name}</td>
                                         <td>{Item.weight}</td>
@@ -137,9 +134,6 @@ export default function ProductSetupPage(){
                 </center>
                 <br></br>
                 <br></br>
-                <center>
-                    <a href="#" class="btn btn-blue btn-animated">Refresh</a>
-                </center>
                 <br></br>
                 <br></br>
                 <br></br>
