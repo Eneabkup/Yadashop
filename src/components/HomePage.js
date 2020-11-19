@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { employee , product} from '../firebase'
+import { employee , product , order} from '../firebase'
 import { Redirect } from "react-router-dom";
 import '../css/main.css';
 
@@ -9,13 +9,13 @@ import CheckOrderPage from '../components/CheckOrderPage'
 export default function HomePage(){
     const [username , setUsername] = useState("")
     const [password , setPassword] = useState("")
-    const [orderChecking , setOrderChecking] = useState("")
-    const [basket , setBasket] = useState("https://firebasestorage.googleapis.com/v0/b/yadashop-3e07d.appspot.com/o/NullBasket.png?alt=media&token=16cf96ee-e22f-4ba0-b628-4b7a3c0fc341")
-    
     const [signin , setSignin] = useState(false)
-    const [basketDetail , setBasketDetail] = useState(false)
+
+    const [orderNumber , setOrderNumber] = useState("")
     const [checking , setChecking] = useState(false)
 
+    const [basket , setBasket] = useState("https://firebasestorage.googleapis.com/v0/b/yadashop-3e07d.appspot.com/o/NullBasket.png?alt=media&token=16cf96ee-e22f-4ba0-b628-4b7a3c0fc341")
+    const [basketDetail , setBasketDetail] = useState(false)
     const [listsBasket , setListsBasket] = useState([])
     const [lists , setLists] = useState([])
 
@@ -44,17 +44,13 @@ export default function HomePage(){
     }
     
     const addItem = (e) => {
-        setBasket("https://firebasestorage.googleapis.com/v0/b/yadashop-3e07d.appspot.com/o/Basket.jpg?alt=media&token=45516853-f05e-4925-a86d-2de4286844e5")
-        console.log(e)
-        console.log(listsBasket.includes(e))
-        if(!listsBasket.includes(e)){
-            listsBasket.push(e)
-            setListsBasket(listsBasket)
-            window.alert("Add Product");
-        }else{
-            window.alert("Available in your basket");
-        }
-        
+        if(window.confirm("Add Product")){
+            setBasket("https://firebasestorage.googleapis.com/v0/b/yadashop-3e07d.appspot.com/o/Basket.jpg?alt=media&token=45516853-f05e-4925-a86d-2de4286844e5")
+            if(!listsBasket.includes(e)){
+                listsBasket.push(e)
+                setListsBasket(listsBasket)
+            }
+        } 
     } 
 
     const login = () => {
@@ -86,7 +82,22 @@ export default function HomePage(){
     }
     
     const checkOrder = () => {
-        setChecking(true)
+        if(orderNumber == ""){
+            window.alert("Please enter your order number");
+        }else{
+            order.doc(orderNumber)
+            .get()
+            .then(function(doc) {
+                if(doc.exists){
+                    setChecking(true)
+                }else{
+                    setOrderNumber("")
+                    window.alert("invalid order number");  
+                }
+            }).catch(function(error) {
+                console.log(error);
+            });
+        }
     }
 
     const getBasket = () => {
@@ -97,7 +108,7 @@ export default function HomePage(){
     if(signin){
         return <Redirect to="/EmployeeSetupPage"/>
     }else if(checking){
-        return <CheckOrderPage></CheckOrderPage>
+        return <CheckOrderPage orderNumber={orderNumber}></CheckOrderPage>
     }else if(basketDetail){
         return <BasketPage></BasketPage>
     }else{
@@ -112,7 +123,7 @@ export default function HomePage(){
                     <br></br>
                     <br></br>
                     <div align="center">
-                        <a><input type="text" class="search" id="Username" placeholder="Order Number" value={orderChecking} onChange={(e) => setOrderChecking(e.target.value)} required=""/></a>
+                        <a><input type="text" class="search" id="orderChecking" placeholder="Order Number" value={orderNumber} onChange={(e) => setOrderNumber(e.target.value)} required=""/></a>
                         <a href="#" class="btn btn-blue btn-animated" onClick={checkOrder}>Check</a>
                         <a href="#" class="btn btn-while btn-animated" onClick={getBasket}><img src={basket} width="30" height="30"/></a>
                     </div>

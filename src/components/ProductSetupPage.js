@@ -34,17 +34,27 @@ export default function ProductSetupPage(){
         });
     }
 
-    
+    const clearValue = () => {
+        setProductID("")
+        setWeight("")
+        setPrice("")
+        setAmount("")
+        setName("")
+        window.location.reload()
+    }
 
     const setProduct = (e) => {
         e.preventDefault()
         if(name == "" || weight == "" || price == "" || amount == ""){
             window.alert("Please try again")
+            clearValue()
         }else if(isNaN(parseInt(weight) || isNaN(parseFloat(price)) || isNaN(parseInt(amount)))){
             window.alert("Please check format weight price and amount again!")
+            clearValue()
         }else if(typeof document.querySelector("#photo").files[0] == 'undefined'){
             window.alert("Please upload product image")
-        }else{
+            clearValue()
+        }else if(window.confirm("Confirm")){
             const ref = firebase.storage().ref();
             const file = document.querySelector("#photo").files[0];
             const imageName = file.name
@@ -61,24 +71,23 @@ export default function ProductSetupPage(){
                     amount: parseInt(amount),
                     image: url
                 }).then(function(){    
-                    setProductID("")
-                    setWeight("")
-                    setPrice("")
-                    setAmount("")
-                    setName("")
                     window.alert("Success")
-                    window.location.reload()
+                    clearValue()
                 });
             })
+        }else{
+            clearValue()
         }
     }
 
 
     const deleteItem = (e) =>{
-        product.doc(e).delete().then(function(){    
-            window.alert("Delete Success!")
-            window.location.reload()
-        });
+        if(window.confirm("Confirm")){
+            product.doc(e).delete().then(function(){    
+                window.alert("Delete Success!")
+                clearValue()
+            });
+        }
     }
 
     

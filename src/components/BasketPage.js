@@ -12,6 +12,9 @@ export default function BasketPage(){
                         <span class="heading-primary-main">Basket</span>
                     </h1>
                 </center>
+                <div class="text-box">
+                    <a href="/" class="btn btn-white btn-animated">Back</a>
+                </div>
             </body>
         </div>
     );

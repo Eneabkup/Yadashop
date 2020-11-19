@@ -85,31 +85,35 @@ export default function OrderDetailPage(props){
     }
 
     const setBill = (e) => {
-        setOrder(e)
-        var date = new Date();
-        bill.doc().set({
-            orderID : props.orderID,
-            date : date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear(),
-            total : total
-        }).then(function(){
-            window.alert("Success")
-            window.location.reload()
-        });
+        if(setOrder(e)){
+            var date = new Date();
+            bill.doc().set({
+                orderID : props.orderID,
+                date : date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear(),
+                total : total
+            }).then(function(){
+                window.alert("Success")
+                window.location.reload()
+            });
+        } 
     }
 
     const setOrder = (e) => {
         if(status == "Packed" || status == "Cancel" || (status == "Not paid" && e == "Packed")){
             window.alert("Please check the order detail again!")
             window.location.reload()
+            return false
+        }else if(window.confirm("Confirm")){
+            order.doc(props.orderID).set({
+                customerID : props.customerID,
+                date : date,
+                status : e
+            }).then(function(){
+                window.alert("Success")
+                window.location.reload()
+            });
         }
-        order.doc(props.orderID).set({
-            customerID : props.customerID,
-            date : date,
-            status : e
-        }).then(function(){
-            window.alert("Success")
-            window.location.reload()
-        });
+        return true
     }
 
     return (
@@ -123,7 +127,7 @@ export default function OrderDetailPage(props){
                 <center>
                     <h1 class="heading-primary">
                         <span class="heading-primary-main">Management</span>
-                        <span class="heading-primary-sub">Order Detail {props.customerID} </span>
+                        <span class="heading-primary-sub">Order Detail</span>
                     </h1>
                 </center>
                 <div class="text-box">

@@ -36,42 +36,53 @@ export default function EmployeeSetupPage(){
         });
     }
     
+    const clearValue = () =>{
+        setUsername("")
+        setName("")
+        setAge("")
+        setSex("")
+        setPhoneNumber("")
+        setPassword("")
+        window.location.reload()
+    }
 
     const setEmployee = (e) => {
         e.preventDefault()
         if(username == "" || password == "" || name == "" || age == "" || sex == "" || phoneNumber == ""){
             window.alert("Please try again")
+            clearValue()
         }else if(isNaN(parseInt(age)) || isNaN(parseInt(phoneNumber))){
             window.alert("Please check format age or phonenumber again!")
+            clearValue()
         }else if(phoneNumber.length != 10){
             window.alert("The length of the number must be 10")
+            clearValue()
         }else if(sex != "Male" && sex != "Female"){
             window.alert("Sex must be Male or Female")
-        }else{
+            clearValue()
+        }else if(window.confirm("Confirm")){
             employee.doc(username).set({
                 password: password,
                 name: name,
                 age: parseInt(age),
                 sex: sex,
                 phoneNumber: phoneNumber
-            }).then(function(){    
-                setUsername("")
-                setName("")
-                setAge("")
-                setSex("")
-                setPhoneNumber("")
-                setPassword("")
-                window.alert("Success")
-                window.location.reload()
-            });
+            }).then(function(){
+                window.alert("Success!")
+                clearValue()
+            })
+        }else{
+            clearValue()
         }
     }
 
     const deleteItem = (e) =>{
-        employee.doc(e).delete().then(function(){    
-            window.alert("Delete Success!")
-            window.location.reload()
-        });
+        if(window.confirm("Confirm")){
+            employee.doc(e).delete().then(function(){    
+                window.alert("Delete Success!")
+                clearValue()
+            });
+        }
     }
 
     return (
