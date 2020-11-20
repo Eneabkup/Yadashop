@@ -9,6 +9,7 @@ import CheckOrderPage from '../components/CheckOrderPage'
 export default function HomePage(){
     const [username , setUsername] = useState("")
     const [password , setPassword] = useState("")
+    const [admin, setAdmin] = useState(false)
     const [signin , setSignin] = useState(false)
 
     const [orderNumber , setOrderNumber] = useState("")
@@ -103,6 +104,10 @@ export default function HomePage(){
     const getBasket = () => {
         setBasketDetail(true)
     }
+
+    const switchVersion = () => {
+        setAdmin(!admin)
+    }
     
 
     if(signin){
@@ -111,22 +116,50 @@ export default function HomePage(){
         return <CheckOrderPage orderNumber={orderNumber}></CheckOrderPage>
     }else if(basketDetail){
         return <BasketPage></BasketPage>
+    }else if(admin){
+        return(
+        <body>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <div align="center">
+                    <h1 class="heading-primary">
+                        <span class="heading-primary-sub">Admin</span>
+                    </h1>
+                </div>
+                <div align="center">
+                    <br></br>
+                    <input type="text" class="login" id="Username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required=""/>
+                    <br></br>
+                    <input type="password" class="login" id="Password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required=""/>
+                    <br></br>
+                    <a href="#" class="btn btn-white btn-animated" onClick = {switchVersion}>Back</a>
+                    <a href="#" class="btn btn-white btn-animated" onClick = {login}>Login</a>
+                </div>
+        </body>);
     }else{
         return (
             <div>
                 <header class="header">
-                    <div align="left">
-                        <a><input type="text" class="login" id="Username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required=""/></a>
-                        <a><input type="password" class="login" id="Password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required=""/></a>
-                        <a href="#" class="btn btn-white btn-animated" onClick = {login}>Login</a>
-                    </div>
                     <br></br>
-                    <br></br>
-                    <div align="center">
-                        <a><input type="text" class="search" id="orderChecking" placeholder="Order Number" value={orderNumber} onChange={(e) => setOrderNumber(e.target.value)} required=""/></a>
-                        <a href="#" class="btn btn-blue btn-animated" onClick={checkOrder}>Check</a>
+                    <div align="right">
+                        <a href="#" class="btn btn-white btn-animated" onClick={switchVersion}>Admin Version</a>
                         <a href="#" class="btn btn-while btn-animated" onClick={getBasket}><img src={basket} width="30" height="30"/></a>
                     </div>
+                    <br></br>
+                    <div align="center">
+                        <h1 class="heading-primary">
+                            <span class="heading-primary-sub">Check Your Order</span>
+                        </h1>
+                        <a ><input type="text" class="search" id="orderChecking" placeholder="Order Number" value={orderNumber} onChange={(e) => setOrderNumber(e.target.value)} required=""/></a>
+                        <a href="#" class="btn btn-white btn-animated" onClick={checkOrder}>Get</a>
+                    </div>
+                    <br></br>
+                    <br></br>
                 </header>
                 <br></br>
                 <body class="body">
@@ -152,3 +185,4 @@ export default function HomePage(){
         );
     }
 }
+
