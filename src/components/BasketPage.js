@@ -40,14 +40,10 @@ export default function BasketPage(props){
     
 
     const ConfirmOrder = () => {
-        
         if(id == "" || address == "" || email == "" || name == "" || phoneNumber == ""){
             window.alert("Plese try again")
         }else{
             var date = new Date();
-            const tmpOrder = {
-                
-            }
             customer.doc(id).set({
                 address: address,
                 email: email,
@@ -67,7 +63,7 @@ export default function BasketPage(props){
                             price: Item.Data.price,
                             weight: Item.Data.weight
                         })
-                        detail.add({
+                        detail.doc().set({
                             amount: Item.PurchaseAmount,
                             orderID: doc.id,
                             price: Item.Data.price,
