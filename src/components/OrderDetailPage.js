@@ -42,6 +42,7 @@ export default function OrderDetailPage(props){
         });
 
         const tmpLists = []
+        var tmpTotal = 0
         detail.get()
             .then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
@@ -53,10 +54,11 @@ export default function OrderDetailPage(props){
                     productID : doc.data().productID
                 }
                 if(taskformat.orderID == props.orderID){
-                    setTotal(total + taskformat.amount * taskformat.price)
+                    tmpTotal += taskformat.amount * taskformat.price
                     tmpLists.push(taskformat)
                 }
             });
+            setTotal(total + tmpTotal)
             setLists(tmpLists)
         });
 

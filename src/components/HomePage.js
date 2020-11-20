@@ -49,6 +49,7 @@ export default function HomePage(){
             setBasket("https://firebasestorage.googleapis.com/v0/b/yadashop-3e07d.appspot.com/o/Basket.jpg?alt=media&token=45516853-f05e-4925-a86d-2de4286844e5")
             if(!listsBasket.includes(e)){
                 listsBasket.push(e)
+                console.log(e)
                 setListsBasket(listsBasket)
             }
         } 
@@ -102,7 +103,11 @@ export default function HomePage(){
     }
 
     const getBasket = () => {
-        setBasketDetail(true)
+        if(listsBasket.length != 0){
+            setBasketDetail(true)
+        }else{
+            window.alert("Plese add your product");  
+        }   
     }
 
     const switchVersion = () => {
@@ -115,7 +120,7 @@ export default function HomePage(){
     }else if(checking){
         return <CheckOrderPage orderNumber={orderNumber}></CheckOrderPage>
     }else if(basketDetail){
-        return <BasketPage></BasketPage>
+        return <BasketPage listsBasket={listsBasket} test={"test"} ></BasketPage>
     }else if(admin){
         return(
         <body>
@@ -148,6 +153,7 @@ export default function HomePage(){
                     <br></br>
                     <div align="right">
                         <a href="#" class="btn btn-white btn-animated" onClick={switchVersion}>Admin Version</a>
+                        <a href="/BillPage" class="btn btn-white btn-animated" >My Bill</a>
                         <a href="#" class="btn btn-while btn-animated" onClick={getBasket}><img src={basket} width="30" height="30"/></a>
                     </div>
                     <br></br>
