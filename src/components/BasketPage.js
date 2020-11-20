@@ -55,6 +55,7 @@ export default function BasketPage(props){
                     date: date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear(),
                     status: "Not paid"
                 }).then(function(doc){
+                    window.alert("Success! Order number is " + doc.id)
                     lists.forEach(function(Item){
                         product.doc(Item.Data.productID).set({
                             amount: Item.NewAmount,
@@ -63,14 +64,16 @@ export default function BasketPage(props){
                             price: Item.Data.price,
                             weight: Item.Data.weight
                         })
-                        detail.doc().set({
+                        detail.add({
+                            name: Item.Data.name,
                             amount: Item.PurchaseAmount,
                             orderID: doc.id,
                             price: Item.Data.price,
                             productID: Item.Data.productID
                         })
                     })
-                    window.alert("Success! Order number is " + doc.id)
+                }).then(function(){
+                    
                     window.location.reload()
                 })
             })
