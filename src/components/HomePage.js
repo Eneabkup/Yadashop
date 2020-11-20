@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { employee , product , order} from '../firebase'
+import { employee , product , order, customer} from '../firebase'
 import { Redirect } from "react-router-dom";
 import '../css/main.css';
 
@@ -18,6 +18,10 @@ export default function HomePage(){
     const [basket , setBasket] = useState("https://firebasestorage.googleapis.com/v0/b/yadashop-3e07d.appspot.com/o/NullBasket.png?alt=media&token=16cf96ee-e22f-4ba0-b628-4b7a3c0fc341")
     const [basketDetail , setBasketDetail] = useState(false)
     const [listsBasket , setListsBasket] = useState([])
+    const [listsItem , setListsItem] = useState([])
+    const [customerID , setCustomerID] = useState("")
+
+
     const [lists , setLists] = useState([])
 
     const [mounted, setMounted] = useState(false)
@@ -45,14 +49,34 @@ export default function HomePage(){
     }
     
     const addItem = (e) => {
-        if(window.confirm("Add Product")){
-            setBasket("https://firebasestorage.googleapis.com/v0/b/yadashop-3e07d.appspot.com/o/Basket.jpg?alt=media&token=45516853-f05e-4925-a86d-2de4286844e5")
-            if(!listsBasket.includes(e)){
-                listsBasket.push(e)
-                console.log(e)
-                setListsBasket(listsBasket)
+        var value = prompt("Please enter purchase amount");
+        if (value != null && !isNaN(parseInt(value)) && parseInt(value) > 0) {
+            if(parseInt(value) <= e.amount){
+                if(!listsBasket.includes(e.productID)){
+                    setBasket("https://firebasestorage.googleapis.com/v0/b/yadashop-3e07d.appspot.com/o/Basket.jpg?alt=media&token=45516853-f05e-4925-a86d-2de4286844e5")
+                
+                    const taskformat = {
+                        Data: e,
+                        PurchaseAmount: parseInt(value),
+                        NewAmount: e.amount - parseInt(value)
+                    }
+
+                    listsItem.push(taskformat)
+                    setListsItem(listsItem)
+
+                    listsBasket.push(e.productID)
+                    setListsBasket(listsBasket)
+
+                    window.alert("Success!");
+                }else{
+                    window.alert("This product already exists.");
+                }
+            }else{
+                window.alert("Out of stock ("+e.amount+")");
             }
-        } 
+        }else {
+            window.alert("Please try again");
+        }
     } 
 
     const login = () => {
@@ -104,7 +128,13 @@ export default function HomePage(){
 
     const getBasket = () => {
         if(listsBasket.length != 0){
-            setBasketDetail(true)
+            var value = prompt("Please enter your identity number")
+            if(value != null){
+                setCustomerID(value)
+                setBasketDetail(true)
+            }else{
+                window.alert("Plese add your product");  
+            }
         }else{
             window.alert("Plese add your product");  
         }   
@@ -120,7 +150,7 @@ export default function HomePage(){
     }else if(checking){
         return <CheckOrderPage orderNumber={orderNumber}></CheckOrderPage>
     }else if(basketDetail){
-        return <BasketPage listsBasket={listsBasket} test={"test"} ></BasketPage>
+        return <BasketPage customerID={customerID} listsItem={listsItem} ></BasketPage>
     }else if(admin){
         return(
         <body>
@@ -172,7 +202,7 @@ export default function HomePage(){
                     {
                         lists.map((Item) => {
                             return(
-                                <a href="#" class="btn btn-white btn-animated" onClick={() => addItem(Item.productID)}>
+                                <a href="#" class="btn btn-white btn-animated" onClick={() => addItem(Item)}>
                                     <br></br>
                                     <br></br>
                                     <img src={Item.image} width="200" height="200"/>
