@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { order , customer , detail ,  product} from '../firebase'
-import { Redirect } from "react-router-dom";
 import '../css/main.css';
 
 
