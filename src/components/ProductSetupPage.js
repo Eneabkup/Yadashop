@@ -51,6 +51,9 @@ export default function ProductSetupPage(){
         }else if(isNaN(parseInt(weight) || isNaN(parseFloat(price)) || isNaN(parseInt(amount)))){
             window.alert("Please check format weight price and amount again!")
             clearValue()
+        }else if(parseInt(weight) < 1 || parseFloat(price) < 1 || parseInt(amount) < 1){
+            window.alert("Invalid number!")
+            clearValue()
         }else if(typeof document.querySelector("#photo").files[0] == 'undefined'){
             window.alert("Please upload product image")
             clearValue()
@@ -80,6 +83,9 @@ export default function ProductSetupPage(){
         }
     }
 
+    const getReport = () => {
+        
+    }
 
     const deleteItem = (e) =>{
         if(window.confirm("Confirm")){
@@ -141,6 +147,9 @@ export default function ProductSetupPage(){
                             }
                     </table>
                 </center>
+                <br></br>
+                <br></br>
+                <div><a href="#" class="btn btn-white btn-animated" onClick = {getReport}>Get Report</a></div>
                 <br></br>
                 <br></br>
                 <br></br>

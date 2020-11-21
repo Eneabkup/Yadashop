@@ -74,7 +74,9 @@ export default function HomePage(){
             }else{
                 window.alert("Out of stock ("+e.amount+")");
             }
-        }else {
+        }else if(parseInt(value)){
+            window.alert("Invalid number!")
+        }else{
             window.alert("Please try again");
         }
     } 
