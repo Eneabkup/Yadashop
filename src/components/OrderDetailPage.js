@@ -41,6 +41,7 @@ export default function OrderDetailPage(props){
             console.log(error);
         });
 
+        var tmpTotal = 0
         const tmpLists = []
         detail.get()
             .then(function(querySnapshot) {
@@ -53,12 +54,14 @@ export default function OrderDetailPage(props){
                     productID : doc.data().productID
                 }
                 if(taskformat.orderID == props.orderID){
-                    setTotal(total + taskformat.amount * taskformat.price)
+                    tmpTotal += taskformat.price * taskformat.amount
                     tmpLists.push(taskformat)
                 }
             });
+            setTotal(total + tmpTotal)
             setLists(tmpLists)
         });
+        
 
         const tmpListsPayment = []
         payment.get()
@@ -91,10 +94,7 @@ export default function OrderDetailPage(props){
                 orderID : props.orderID,
                 date : date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear(),
                 total : total
-            }).then(function(){
-                window.alert("Success")
-                window.location.reload()
-            });
+            })
         } 
     }
 

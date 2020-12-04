@@ -6,6 +6,9 @@ import OrderSetupPage from './components/OrderSetupPage'
 import ProductSetupPage from './components/ProductSetupPage'
 import EmployeeSetupPage from './components/EmployeeSetupPage'
 import OrderDetailPage from './components/OrderDetailPage'
+import CheckOrderPage from './components/CheckOrderPage'
+import BillPage from './components/BillPage'
+import ReportPage from './components/ReportPage'
 import './App.css';
 
 
@@ -18,7 +21,9 @@ function App() {
       <Route path="/ProductSetupPage" component = {ProductSetupPage}/>
       <Route path="/OrderSetupPage" component = {OrderSetupPage}/>
       <Route path="/OrderDetailPage" component = {OrderDetailPage}/>
-      
+      <Route path="/CheckOrderPage" component = {CheckOrderPage}/>
+      <Route path="/BillPage" component = {BillPage}/>
+      <Route path="/ReportPage" component = {ReportPage}/>
     </BrowserRouter>
   );
 }

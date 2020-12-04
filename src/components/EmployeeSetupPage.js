@@ -8,8 +8,6 @@ export default function EmployeeSetupPage(){
     const [username , setUsername] = useState("")
     const [password , setPassword] = useState("")
     const [name , setName] = useState("")
-    const [age , setAge] = useState("")
-    const [sex , setSex] = useState("")
     const [phoneNumber , setPhoneNumber] = useState("")
 
     const [lists , setLists] = useState([])
@@ -26,8 +24,6 @@ export default function EmployeeSetupPage(){
                     username : doc.id,
                     password : doc.data().password,
                     name : doc.data().name,
-                    age : doc.data().age,
-                    sex : doc.data().sex,
                     phoneNumber : doc.data().phoneNumber
                 }
                 tmpLists.push(taskformat)
@@ -39,8 +35,6 @@ export default function EmployeeSetupPage(){
     const clearValue = () =>{
         setUsername("")
         setName("")
-        setAge("")
-        setSex("")
         setPhoneNumber("")
         setPassword("")
         window.location.reload()
@@ -48,24 +42,16 @@ export default function EmployeeSetupPage(){
 
     const setEmployee = (e) => {
         e.preventDefault()
-        if(username == "" || password == "" || name == "" || age == "" || sex == "" || phoneNumber == ""){
+        if(username == "" || password == "" || name == ""  || phoneNumber == ""){
             window.alert("Please try again")
-            clearValue()
-        }else if(isNaN(parseInt(age)) || isNaN(parseInt(phoneNumber))){
-            window.alert("Please check format age or phonenumber again!")
             clearValue()
         }else if(phoneNumber.length != 10){
             window.alert("The length of the number must be 10")
-            clearValue()
-        }else if(sex != "Male" && sex != "Female"){
-            window.alert("Sex must be Male or Female")
             clearValue()
         }else if(window.confirm("Confirm")){
             employee.doc(username).set({
                 password: password,
                 name: name,
-                age: parseInt(age),
-                sex: sex,
                 phoneNumber: phoneNumber
             }).then(function(){
                 window.alert("Success!")
@@ -113,8 +99,6 @@ export default function EmployeeSetupPage(){
                               <th>Username</th>
                               <th>Password</th>
                               <th>Name</th>
-                              <th>Age</th>
-                              <th>Sex</th>
                               <th>Phone</th>
                               <th>Delete</th>
                             </tr>
@@ -125,8 +109,6 @@ export default function EmployeeSetupPage(){
                                         <td>{Item.username}</td>
                                         <td>{Item.password}</td>
                                         <td>{Item.name}</td>
-                                        <td>{Item.age}</td>
-                                        <td>{Item.sex}</td>
                                         <td>{Item.phoneNumber}</td>
                                         <td class="btn btn-red btn-animated" onClick={() => deleteItem(Item.username)}>delete</td>
                                     </tr>
@@ -144,10 +126,6 @@ export default function EmployeeSetupPage(){
                     <input type="password" class="input" id="Password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required=""/>
                     <br></br>
                     <input type="text" class="input" id="Name" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required=""/>
-                    <br></br>
-                    <input type="text" class="input" id="Age" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} required=""/>
-                    <br></br>
-                    <input type="text" class="input" id="Sex" placeholder="Sex" value={sex} onChange={(e) => setSex(e.target.value)} required=""/>
                     <br></br>
                     <input type="text" class="input" id="Phonenumber" placeholder="Phonenumber" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} required=""/>
                     <div><a href="#" class="btn btn-white btn-animated" onClick = {setEmployee}>Add/Update</a></div>
